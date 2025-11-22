@@ -1,0 +1,51 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Blue Observer",
+    "section": "",
+    "text": "points = FileAttachment(\"data/points.json\").json()\n\nspeciesList = [\"All\", ...new Set(points.map(d =&gt; d.species))]\nregionList  = [\"All\", ...new Set(points.map(d =&gt; d.region))]\nseasonList  = [\"All\", ...new Set(points.map(d =&gt; d.season))]\n\nviewof species = Inputs.select(speciesList, {label: \"Species\"})\nviewof region = Inputs.select(regionList, {label: \"Area\"})\nviewof season = Inputs.select(seasonList, {label: \"Period\"})\n\nfiltered = points.filter(p =&gt;\n  (species === \"All\" || p.species === species) &&\n  (region  === \"All\" || p.region  === region) &&\n  (season  === \"All\" || p.season  === season)\n)\n\nmap = {\n  const div = html`&lt;div style=\"width:100%; height:70vh; margin-top:20px; border-radius:10px; overflow:hidden;\"&gt;&lt;/div&gt;`;\n  const map = L.map(div).setView([20, 0], 2);\n\n  L.tileLayer(\"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\", {\n    maxZoom: 19,\n    attribution: \"© OpenStreetMap\"\n  }).addTo(map);\n\n  filtered.forEach(p =&gt; {\n    const popup = `\n      &lt;div style=\"display:flex; gap:10px; align-items:center; max-width:260px;\"&gt;\n        &lt;img src=\"${p.photo}\" width=\"50\" height=\"50\" style=\"border-radius:6px;\" /&gt;\n        &lt;div&gt;\n          &lt;strong&gt;${p.commonName}&lt;/strong&gt;&lt;br&gt;\n          &lt;em&gt;${p.species}&lt;/em&gt;&lt;br&gt;\n          &lt;small&gt;${p.region} — ${p.season}&lt;/small&gt;&lt;br&gt;\n          &lt;small&gt;Temp: ${p.temp}°C — Salinity: ${p.salinity}‰&lt;/small&gt;&lt;br&gt;\n          ${p.link}\n        &lt;/div&gt;\n      &lt;/div&gt;\n    `;\n    L.marker([p.lat, p.lng]).addTo(map).bindPopup(popup);\n  });\n\n  return div;\n}"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  },
+  {
+    "objectID": "index.html#filters",
+    "href": "index.html#filters",
+    "title": "Blue Observer",
+    "section": "Filters",
+    "text": "Filters\n\n// Charger points\npoints = FileAttachment(\"data/points.json\").json()\n\n\n\n\n\n\n\nspeciesList = [\"All\", ...new Set(points.map(d =&gt; d.species))]\nregionList  = [\"All\", ...new Set(points.map(d =&gt; d.region))]\nseasonList  = [\"All\", ...new Set(points.map(d =&gt; d.season))]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSpecies\n\nviewof species = Inputs.select(speciesList, {label: \"Species\"})\n\n\n\n\n\n\n\n\nArea\n\nviewof region = Inputs.select(regionList, {label: \"Area\"})\n\n\n\n\n\n\n\n\nPeriod\n\nviewof season = Inputs.select(seasonList, {label: \"Period\"})"
+  },
+  {
+    "objectID": "index.html#filtered-points",
+    "href": "index.html#filtered-points",
+    "title": "Blue Observer",
+    "section": "Filtered Points",
+    "text": "Filtered Points\n\nfiltered = points.filter(p =&gt;\n  (species === \"All\" || p.species === species) &&\n  (region  === \"All\" || p.region  === region) &&\n  (season  === \"All\" || p.season  === season)\n)"
+  },
+  {
+    "objectID": "index.html#carte-leaflet",
+    "href": "index.html#carte-leaflet",
+    "title": "Blue Observer",
+    "section": "Carte Leaflet",
+    "text": "Carte Leaflet\n\nmap = {\n  const div = html`&lt;div style=\"width:100%; height:70vh; margin-top:20px; border-radius:10px; overflow:hidden;\"&gt;&lt;/div&gt;`;\n  const map = L.map(div).setView([20, 0], 2);\n\n  L.tileLayer(\"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\", {\n    maxZoom: 19,\n    attribution: \"© OpenStreetMap\"\n  }).addTo(map);\n\n  filtered.forEach(p =&gt; {\n    const popup = `\n      &lt;div style=\"display:flex; gap:10px; align-items:center; max-width:260px;\"&gt;\n        &lt;img src=\"${p.photo}\" width=\"50\" height=\"50\" style=\"border-radius:6px;\" /&gt;\n        &lt;div&gt;\n          &lt;strong&gt;${p.commonName}&lt;/strong&gt;&lt;br&gt;\n          &lt;em&gt;${p.species}&lt;/em&gt;&lt;br&gt;\n          &lt;small&gt;${p.region} — ${p.season}&lt;/small&gt;&lt;br&gt;\n          &lt;small&gt;Temp: ${p.temp}°C — Salinity: ${p.salinity}‰&lt;/small&gt;&lt;br&gt;\n          ${p.link}\n        &lt;/div&gt;\n      &lt;/div&gt;\n    `;\n    L.marker([p.lat, p.lng]).addTo(map).bindPopup(popup);\n  });\n\n  return div;\n}"
+  },
+  {
+    "objectID": "index.html#filtres",
+    "href": "index.html#filtres",
+    "title": "Blue Observer",
+    "section": "Filtres",
+    "text": "Filtres\n\nviewof species = Inputs.select(speciesList, {label: \"Species\"})\nviewof region = Inputs.select(regionList, {label: \"Area\"})\nviewof season = Inputs.select(seasonList, {label: \"Period\"})\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nfiltered = points.filter(p =&gt;\n  (species === \"All\" || p.species === species) &&\n  (region  === \"All\" || p.region  === region) &&\n  (season  === \"All\" || p.season  === season)\n)\n\n\n\n\n\n\n\nmap = {\n  const div = html`&lt;div style=\"width:100%; height:70vh; margin-top:20px; border-radius:10px; overflow:hidden;\"&gt;&lt;/div&gt;`;\n  const map = L.map(div).setView([20, 0], 2);\n\n  L.tileLayer(\"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\", {\n    maxZoom: 19,\n    attribution: \"© OpenStreetMap\"\n  }).addTo(map);\n\n  filtered.forEach(p =&gt; {\n    const popup = `\n      &lt;div style=\"display:flex; gap:10px; align-items:center; max-width:260px;\"&gt;\n        &lt;img src=\"${p.photo}\" width=\"50\" height=\"50\" style=\"border-radius:6px;\" /&gt;\n        &lt;div&gt;\n          &lt;strong&gt;${p.commonName}&lt;/strong&gt;&lt;br&gt;\n          &lt;em&gt;${p.species}&lt;/em&gt;&lt;br&gt;\n          &lt;small&gt;${p.region} — ${p.season}&lt;/small&gt;&lt;br&gt;\n          &lt;small&gt;Temp: ${p.temp}°C — Salinity: ${p.salinity}‰&lt;/small&gt;&lt;br&gt;\n          ${p.link}\n        &lt;/div&gt;\n      &lt;/div&gt;\n    `;\n    L.marker([p.lat, p.lng]).addTo(map).bindPopup(popup);\n  });\n\n  return div;\n}"
+  },
+  {
+    "objectID": "index.html#row",
+    "href": "index.html#row",
+    "title": "Blue Observer",
+    "section": "Row",
+    "text": "Row\n\nColumn\n\n\npoints = FileAttachment(\"data/points.json\").json()\n\nspeciesList = [\"All\", ...new Set(points.map(d =&gt; d.species))]\nregionList  = [\"All\", ...new Set(points.map(d =&gt; d.region))]\nseasonList  = [\"All\", ...new Set(points.map(d =&gt; d.season))]\n\nfiltered = points.filter(p =&gt;\n  (species === \"All\" || p.species === species) &&\n  (region  === \"All\" || p.region  === region) &&\n  (season  === \"All\" || p.season  === season)\n)\n\nmap = {\n  const div = html`&lt;div id=\"map\" style=\"width:100%; height:100vh; margin:0; padding:0;\"&gt;&lt;/div&gt;`;\n  const map = L.map(div).setView([20, 0], 2);\n\n  L.tileLayer(\"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\", {\n    maxZoom: 19,\n    minZoom: 2,\n  }).addTo(map);\n\n  filtered.forEach(p =&gt; {\n    const popup = `\n      &lt;div style=\"display:flex; gap:10px; align-items:center; max-width:260px;\"&gt;\n        &lt;img src=\"${p.photo}\" width=\"50\" height=\"50\" style=\"border-radius:6px;\" /&gt;\n        &lt;div&gt;\n          &lt;strong&gt;${p.commonName}&lt;/strong&gt;&lt;br&gt;\n          &lt;em&gt;${p.species}&lt;/em&gt;&lt;br&gt;\n          &lt;small&gt;${p.region} — ${p.season}&lt;/small&gt;&lt;br&gt;\n          &lt;small&gt;Temp: ${p.temp}°C — Salinity: ${p.salinity}‰&lt;/small&gt;&lt;br&gt;\n          ${p.link}\n        &lt;/div&gt;\n      &lt;/div&gt;\n    `;\n    L.marker([p.lat, p.lng]).addTo(map).bindPopup(popup);\n  });\n\n  return div;\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nviewof species = Inputs.select(speciesList, {label: \"Species\"})\nviewof region = Inputs.select(regionList, {label: \"Area\"})\nviewof season = Inputs.select(seasonList, {label: \"Period\"})"
+  }
+]

@@ -1,0 +1,87 @@
+---
+title: ""
+format:
+  dashboard:
+    code-tools: false
+    css: styles.css
+execute:
+  echo: false
+---
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+## Row
+
+### Column
+::: {.card height=100% padding=0px}
+
+<div id="map" style="width:100%; height:calc(-100px + 100vh); margin:0; padding:0;"></div>
+
+<script>
+
+    let map;
+    let markers = [];
+
+    document.addEventListener("DOMContentLoaded", () => {
+        map = L.map("map").setView([20, 0], 2);
+
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            maxZoom: 19,
+            minZoom: 2,
+        }).addTo(map);
+    });
+
+    function updateMarkers(data) {
+
+        markers.forEach(m => map.removeLayer(m));
+        markers = [];
+
+        data.forEach(p => {
+            const popup = `
+                <div style="display:flex; gap:10px; align-items:center; max-width:260px;">
+                    <img src="${p.photo}" width="50" height="50" style="border-radius:6px;" />
+                    <div>
+                        <strong>${p.commonName}</strong><br>
+                        <em>${p.species}</em><br>
+                        <small>${p.region} — ${p.month}</small><br>
+
+                        <br><strong>Météo moyenne :</strong><br>
+                        🌡 Temp moyenne : ${p.avg_temp} °C<br>
+                        🌧 Pluviométrie : ${p.avg_rain} mm/jour<br>
+                        💨 Vent moyen : ${p.avg_wind} km/h<br>
+
+                        <br>${p.link}
+                    </div>
+                </div>
+                `;
+            const m = L.marker([p.lat, p.lng]).addTo(map).bindPopup(popup);
+            markers.push(m);
+        });
+    }
+</script>
+
+```{ojs}
+points = FileAttachment("data/points.json").json()
+
+speciesList = ["All", ...new Set(points.map(d => d.species))]
+regionList  = ["All", ...new Set(points.map(d => d.region))]
+monthList  = ["All", ...new Set(points.map(d => d.month))]
+
+filtered = points.filter(p =>
+  (species === "All" || p.species === species) &&
+  (region  === "All" || p.region  === region) &&
+  (month   === "All" || p.month  === month)
+)
+
+updateMarkers(filtered)
+
+```
+:::
+
+### {.sidebar}
+```{ojs}
+viewof species = Inputs.select(speciesList, {label: "Species"})
+viewof region = Inputs.select(regionList, {label: "Area"})
+viewof month = Inputs.select(monthList, {label: "Period"})
+```

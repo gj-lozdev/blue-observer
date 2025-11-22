@@ -1,0 +1,26 @@
+.observablehq--inspect {
+  display: none;
+}
+
+select {
+  padding: 8px 12px;
+  border: 1px solid #888;
+  border-radius: 6px;
+  background: white;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+select:focus {
+  outline: none;
+  border-color: #005BD1;
+  box-shadow: 0 0 4px rgba(0, 91, 209, 0.4);
+}
+
+label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 4px;
+  display: block;
+}
