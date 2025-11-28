@@ -40,18 +40,14 @@ execute:
         data.forEach(p => {
             const popup = `
                 <div style="display:flex; gap:10px; align-items:center; max-width:260px;">
-                    <img src="${p.photo}" width="50" height="50" style="border-radius:6px;" />
                     <div>
-                        <strong>${p.commonName}</strong><br>
-                        <em>${p.species}</em><br>
-                        <small>${p.region} — ${p.month}</small><br>
+                        <strong>${p.species}</strong><br>
+                        <small>${p.month}</small><br>
 
                         <br><strong>Météo moyenne :</strong><br>
                         🌡 Temp moyenne : ${p.avg_temp} °C<br>
                         🌧 Pluviométrie : ${p.avg_rain} mm/jour<br>
                         💨 Vent moyen : ${p.avg_wind} km/h<br>
-
-                        <br>${p.link}
                     </div>
                 </div>
                 `;
@@ -81,7 +77,10 @@ updateMarkers(filtered)
 
 ### {.sidebar}
 ```{ojs}
-viewof species = Inputs.select(speciesList, {label: "Species"})
+viewof species = Inputs.select(speciesList, {
+  label: "Species",
+  value: speciesList[1]   
+})
 viewof region = Inputs.select(regionList, {label: "Area"})
 viewof month = Inputs.select(monthList, {label: "Period"})
 ```
